@@ -7,19 +7,19 @@ from skfuzzy import control as ctrl
 
 # New Antecedent/Consequent objects hold universe variables and membership
 # functions
-quality = ctrl.Antecedent(np.arange(0, 11, 1), 'quality')
-service = ctrl.Antecedent(np.arange(0, 11, 1), 'service')
-tip = ctrl.Consequent(np.arange(0, 26, 1), 'tip')
+distance = ctrl.Antecedent(np.arange(0, 11, 1), 'distance')
+velocity = ctrl.Antecedent(np.arange(0, 11, 1), 'velocity')
+pressure = ctrl.Consequent(np.arange(0, 26, 1), 'pressure')
 
 # Auto-membership function population is possible with .automf(3, 5, or 7)
-quality.automf(3)
-service.automf(3)
+distance.automf(3)
+velocity.automf(3)
 
 # Custom membership functions can be built interactively with a familiar,
 # Pythonic API
-tip['low'] = fuzz.trimf(tip.universe, [0, 0, 13])
-tip['medium'] = fuzz.trimf(tip.universe, [0, 13, 25])
-tip['high'] = fuzz.trimf(tip.universe, [13, 25, 25])
+pressure['low'] = fuzz.trimf(pressure.universe, [0, 0, 13])
+pressure['medium'] = fuzz.trimf(pressure.universe, [0, 13, 25])
+pressure['high'] = fuzz.trimf(pressure.universe, [13, 25, 25])
 
 # You can see how these look with .view()
 # quality['average'].view()
@@ -28,25 +28,25 @@ tip['high'] = fuzz.trimf(tip.universe, [13, 25, 25])
 
 # tip.view()
 
-rule1 = ctrl.Rule(quality['poor'] | service['poor'], tip['low'])
-rule2 = ctrl.Rule(service['average'], tip['medium'])
-rule3 = ctrl.Rule(service['good'] | quality['good'], tip['high'])
+rule1 = ctrl.Rule(distance['poor'] | velocity['poor'], pressure['low'])
+rule2 = ctrl.Rule(velocity['average'], pressure['medium'])
+rule3 = ctrl.Rule(velocity['good'] | distance['good'], pressure['high'])
 
 # rule1.view()
 
-tipping_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
+breaking_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
 
-tipping = ctrl.ControlSystemSimulation(tipping_ctrl)
+breaking = ctrl.ControlSystemSimulation(breaking_ctrl)
 
 # Pass inputs to the ControlSystem using Antecedent labels with Pythonic API
 # Note: if you like passing many inputs all at once, use .inputs(dict_of_data)
-tipping.input['quality'] = 6.5
-tipping.input['service'] = 9.8
+breaking.input['distance'] = 6.5
+breaking.input['velocity'] = 9.8
 
 # Crunch the numbers
-tipping.compute()
+breaking.compute()
 
-print(tipping.output['tip'])
-tip.view(sim=tipping)
+print(breaking.output['pressure'])
+pressure.view(sim=breaking)
 
 input('ENTER TO EXIT')
