@@ -28,13 +28,20 @@ pressure['high'] = fuzz.trimf(pressure.universe, [65, 100, 100])
 
 # tip.view()
 
-rule1 = ctrl.Rule(distance['poor'] | velocity['poor'], pressure['low'])
-rule2 = ctrl.Rule(velocity['average'], pressure['medium'])
-rule3 = ctrl.Rule(velocity['good'] | distance['good'], pressure['high'])
+rules = []
+
+rules.append( ctrl.Rule(distance['good'], pressure['low']) )
+rules.append( ctrl.Rule(distance['average'], pressure['medium']) )
+rules.append( ctrl.Rule(distance['poor'], pressure['high']) )
+
+rules.append( ctrl.Rule(velocity['good'], pressure['high']) )
+rules.append( ctrl.Rule(velocity['average'], pressure['medium']) )
+rules.append( ctrl.Rule(velocity['poor'], pressure['low']) )
+
 
 # rule1.view()
 
-braking_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
+braking_ctrl = ctrl.ControlSystem(rules)
 
 braking = ctrl.ControlSystemSimulation(braking_ctrl)
 
