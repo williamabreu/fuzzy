@@ -7,9 +7,9 @@ from skfuzzy import control as ctrl
 
 # New Antecedent/Consequent objects hold universe variables and membership
 # functions
-distance = ctrl.Antecedent(np.arange(0, 11, 1), 'distance')
-velocity = ctrl.Antecedent(np.arange(0, 11, 1), 'velocity')
-pressure = ctrl.Consequent(np.arange(0, 26, 1), 'pressure')
+distance = ctrl.Antecedent(np.arange(0, 101, 1), 'distance')
+velocity = ctrl.Antecedent(np.arange(0, 101, 1), 'velocity')
+pressure = ctrl.Consequent(np.arange(0, 101, 1), 'pressure')
 
 # Auto-membership function population is possible with .automf(3, 5, or 7)
 distance.automf(3)
@@ -17,9 +17,9 @@ velocity.automf(3)
 
 # Custom membership functions can be built interactively with a familiar,
 # Pythonic API
-pressure['low'] = fuzz.trimf(pressure.universe, [0, 0, 13])
-pressure['medium'] = fuzz.trimf(pressure.universe, [0, 13, 25])
-pressure['high'] = fuzz.trimf(pressure.universe, [13, 25, 25])
+pressure['low'] = fuzz.trimf(pressure.universe, [0, 0, 30])
+pressure['medium'] = fuzz.trimf(pressure.universe, [20, 50, 75])
+pressure['high'] = fuzz.trimf(pressure.universe, [65, 100, 100])
 
 # You can see how these look with .view()
 # quality['average'].view()
@@ -40,8 +40,8 @@ braking = ctrl.ControlSystemSimulation(braking_ctrl)
 
 # Pass inputs to the ControlSystem using Antecedent labels with Pythonic API
 # Note: if you like passing many inputs all at once, use .inputs(dict_of_data)
-braking.input['distance'] = 6.5
-braking.input['velocity'] = 9.8
+braking.input['distance'] = 80
+braking.input['velocity'] = 60
 
 # Crunch the numbers
 braking.compute()
