@@ -34,19 +34,19 @@ rule3 = ctrl.Rule(velocity['good'] | distance['good'], pressure['high'])
 
 # rule1.view()
 
-breaking_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
+braking_ctrl = ctrl.ControlSystem([rule1, rule2, rule3])
 
-breaking = ctrl.ControlSystemSimulation(breaking_ctrl)
+braking = ctrl.ControlSystemSimulation(braking_ctrl)
 
 # Pass inputs to the ControlSystem using Antecedent labels with Pythonic API
 # Note: if you like passing many inputs all at once, use .inputs(dict_of_data)
-breaking.input['distance'] = 6.5
-breaking.input['velocity'] = 9.8
+braking.input['distance'] = 6.5
+braking.input['velocity'] = 9.8
 
 # Crunch the numbers
-breaking.compute()
+braking.compute()
 
-print(breaking.output['pressure'])
-pressure.view(sim=breaking)
+print(braking.output['pressure'])
+pressure.view(sim=braking)
 
 input('ENTER TO EXIT')
