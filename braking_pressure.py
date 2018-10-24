@@ -50,6 +50,7 @@ if __name__ == '__main__':
     while True:
         try:
             print('--------  {}  --------'.format(i))
+            i += 1
 
             braking = ctrl.ControlSystemSimulation(braking_ctrl)
 
