@@ -39,15 +39,6 @@ def braking_pressure():
     rules.append( ctrl.Rule(velocity['poor'] & distance['poor'], pressure['medium']) )
     rules.append( ctrl.Rule(velocity['poor'] & distance['good'], pressure['low']) )
 
-    # rules.append(ctrl.Rule(velocity['poor'] & distance['average'], pressure['low']))
-    # rules.append(ctrl.Rule(velocity['poor'] & distance['poor'], pressure['low']))
-    # rules.append(ctrl.Rule(velocity['poor'] & distance['poor'], pressure['medium']))
-    # rules.append(ctrl.Rule(velocity['average'] & distance['average'], pressure['medium']))
-    # rules.append(ctrl.Rule(velocity['average'] & distance['poor'], pressure['high']))
-    # rules.append(ctrl.Rule(velocity['average'] & distance['poor'], pressure['high']))
-    # rules.append(ctrl.Rule(velocity['good'] & distance['good'], pressure['medium']))
-    # rules.append(ctrl.Rule(velocity['good'] & distance['good'], pressure['high']))
-
     return ctrl.ControlSystem(rules), pressure
 
 
